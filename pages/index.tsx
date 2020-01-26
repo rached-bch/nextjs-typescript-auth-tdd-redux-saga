@@ -1,4 +1,6 @@
 import React from "react";
+import Layout from "../components/layout";
+import Login from "../components/login";
 
 export default class Index extends React.Component<any> {
   constructor(props) {
@@ -6,6 +8,12 @@ export default class Index extends React.Component<any> {
   }
 
   render() {
-    return <h1>Hello World!</h1>;
+    return (
+      <Layout>
+        <div className="d-flex justify-content-center">
+          <Login></Login>
+        </div>
+      </Layout>
+    );
   }
 }
