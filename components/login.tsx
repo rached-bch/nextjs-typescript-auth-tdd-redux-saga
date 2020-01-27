@@ -1,6 +1,14 @@
 import React from "react";
+import { connect } from "react-redux";
+import { logout, login } from "../stores/modules/auth/actions";
+import { func, object, string } from "prop-types";
+import { bindActionCreators } from "redux";
 
-export default class Login extends React.Component {
+class Login extends React.Component<any, any> {
+  runLogin = () => {
+    console.log("yeeyeyeyey");
+    this.props.login();
+  };
   render() {
     return (
       <div className="block-login-form">
@@ -24,7 +32,11 @@ export default class Login extends React.Component {
               placeholder="Password"
             />
           </div>
-          <button type="submit" className="btn btn-primary">
+          <button
+            type="button"
+            className="btn btn-primary"
+            onClick={this.runLogin}
+          >
             Log in
           </button>
         </form>
@@ -32,3 +44,13 @@ export default class Login extends React.Component {
     );
   }
 }
+
+const mapStateToProps = state => ({
+  user: state.user
+});
+
+const mapDispatchToProps = {
+  login
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

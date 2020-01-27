@@ -1,9 +1,15 @@
-import { fork } from "redux-saga/effects";
-
+import {
+  fork,
+  takeEvery,
+  takeLatest,
+  call,
+  put,
+  all
+} from "redux-saga/effects";
+import * as types from "./modules/auth/types";
 import authSaga from "./modules/auth/sagas";
 
-const sagas = [authSaga];
-
 export default function* rootSaga() {
-  yield sagas.map(saga => fork(saga));
+  //yield sagas.map(saga => fork(saga));
+  yield all([...authSaga]);
 }

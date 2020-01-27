@@ -8,24 +8,50 @@ const initialState = {
   user: {}
 };
 
-const authReducer = handleActions(
-  {
-    [types.LOGIN_SUCCESS]: (state, { payload }) => {
+// const authReducer = handleActions(
+//   {
+//     [types.LOGIN_SUCCESS]: (state, { payload }) => {
+//       return {
+//         ...state,
+//         userIsLogin: true
+//       };
+//     },
+//     [types.LOGIN_SUCCESS]: (state, { payload }) => {
+//       return {
+//         ...state,
+//         userIsLogin: false,
+//         userSuccess: true,
+//         userError: false,
+//         user: payload
+//       };
+//     },
+//     [types.LOGIN_ERROR]: (state, { payload }) => {
+//       return {
+//         ...state,
+//         userIsLogin: false,
+//         userSuccess: false,
+//         userError: true,
+//         user: {}
+//       };
+//     },
+//     [types.LOGOUT]: (state, { payload }) => {
+//       return initialState;
+//     }
+//   },
+//   initialState
+// );
+
+// export default authReducer;
+
+const authReducer = (state = initialState, action) => {
+  //console.log("vvvvvvvvvvv", action);
+  switch (action.type) {
+    case types.LOGIN_SUCCESS:
       return {
         ...state,
         userIsLogin: true
       };
-    },
-    [types.LOGIN_SUCCESS]: (state, { payload }) => {
-      return {
-        ...state,
-        userIsLogin: false,
-        userSuccess: true,
-        userError: false,
-        user: payload
-      };
-    },
-    [types.LOGIN_ERROR]: (state, { payload }) => {
+    case types.LOGIN_ERROR:
       return {
         ...state,
         userIsLogin: false,
@@ -33,12 +59,11 @@ const authReducer = handleActions(
         userError: true,
         user: {}
       };
-    },
-    [types.LOGOUT]: (state, { payload }) => {
+    case types.LOGOUT:
       return initialState;
-    }
-  },
-  initialState
-);
+    default:
+      return state;
+  }
+};
 
 export default authReducer;
