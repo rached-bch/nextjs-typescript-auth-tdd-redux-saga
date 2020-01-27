@@ -3,35 +3,34 @@ import App, { Container } from "next/app";
 import { ApolloProvider } from "@apollo/react-hooks";
 import client from "../api/apiClient";
 import { gql } from "apollo-boost";
+import appStore from "../stores/appStore";
+import { Provider } from "react-redux";
+import withRedux from "next-redux-wrapper";
 
-client
-  .query({
-    query: gql`
-      {
-        rates(currency: "USD") {
-          currency
-        }
-      }
-    `
-  })
-  .then(result => console.log(result));
-
-export default class MyApp extends App<any> {
-  static async getInitialProps({ Component, ctx }) {
-    return {
-      pageProps: Component.getInitialProps
-        ? await Component.getInitialProps(ctx)
-        : {}
-    };
-  }
-
-  render() {
-    //console.log(this.props);
-    const { Component, pageProps } = this.props;
-    return (
-      <ApolloProvider client={client}>
-        <Component {...pageProps} />
-      </ApolloProvider>
-    );
-  }
+interface Props {
+  store: any;
 }
+
+export default withRedux(appStore)(
+  class MyApp extends App<Props> {
+    static async getInitialProps({ Component, ctx }) {
+      return {
+        pageProps: Component.getInitialProps
+          ? await Component.getInitialProps(ctx)
+          : {}
+      };
+    }
+
+    render() {
+      //console.log(this.props);
+      const { Component, pageProps, store } = this.props;
+      return (
+        <ApolloProvider client={client}>
+          <Provider store={store}>
+            <Component {...pageProps} />
+          </Provider>
+        </ApolloProvider>
+      );
+    }
+  }
+);
