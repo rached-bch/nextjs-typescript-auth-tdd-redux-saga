@@ -12,7 +12,7 @@ let nextConfig = withCSS(withSass());
 nextConfig = {
   ...nextConfig,
   env: {
-    REACT_APP_GRAPHQL_HTTP: "https://48p1r2roz4.sse.codesandbox.io"
+    REACT_APP_GRAPHQL_HTTP: "https://graphqlzero.almansi.me/api"
   }
 };
 module.exports = nextConfig;

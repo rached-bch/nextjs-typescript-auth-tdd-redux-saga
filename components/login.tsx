@@ -1,46 +1,72 @@
 import React from "react";
 import { connect } from "react-redux";
-import { logout, login } from "../stores/modules/auth/actions";
+import {
+  loginFormError,
+  login,
+  loginHideFormErrors,
+  loginProceed
+} from "../stores/modules/auth/actions";
 import { func, object, string } from "prop-types";
 import { bindActionCreators } from "redux";
+import * as types from "../stores/modules/auth/types";
 
 class Login extends React.Component<any, any> {
-  username: string = null;
-  password: string = null;
+  username: string = "deving.test@gmail.com";
+  password: string = "12465mpdeed";
   runLogin = event => {
     event.preventDefault();
-    console.log("yeeyeyeyey");
-    //this.props.userError = true;
+    console.log(this.username, this.password);
+    if (
+      this.username !== null &&
+      this.username.length > 0 &&
+      this.password !== null &&
+      this.password.length > 0
+    ) {
+      this.props.loginProceed();
+      this.props.login({ username: this.username, password: this.password });
+    } else {
+      this.props.loginFormError();
+    }
     //this.props.login();
   };
   handleChange = event => {
+    this.props.loginHideFormErrors();
+    //console.log("event.target.name", event.target.name);
     switch (event.target.name) {
-      case "usename":
+      case "email":
         this.username = event.target.value;
         break;
       case "password":
         this.password = event.target.value;
         break;
     }
-    console.log("user credentials", this.username, this.password);
   };
   render() {
-    console.log("this.props", this.props);
     return (
       <div className="block-login-form">
+        {this.props.userFormError ? (
+          <div className="alert alert-danger">Form error</div>
+        ) : null}
         {this.props.userError ? (
-          <div className="alert alert-danger">Error</div>
+          <div className="alert alert-danger">Error authentication</div>
+        ) : null}
+        {this.props.userSuccess ? (
+          <div className="alert alert-success">
+            <p>Success authentication</p>
+            <p>User : {this.props.user.name}</p>
+          </div>
         ) : null}
         <form onSubmit={this.runLogin}>
           <div className="form-group">
             <label htmlFor="exampleInputEmail1">Email address</label>
             <input
               type="email"
-              name="usename"
+              name="email"
               className="form-control"
               id="exampleInputEmail1"
               aria-describedby="emailHelp"
               placeholder="Enter email"
+              defaultValue={this.username}
               onChange={this.handleChange}
             />
           </div>
@@ -52,6 +78,7 @@ class Login extends React.Component<any, any> {
               className="form-control"
               id="exampleInputPassword1"
               placeholder="Password"
+              defaultValue={this.password}
               onChange={this.handleChange}
             />
           </div>
@@ -65,17 +92,19 @@ class Login extends React.Component<any, any> {
 }
 
 const mapStateToProps = state => {
-  console.log({ state });
   return {
     userError: state.auth.userError,
     userSuccess: state.auth.userSuccess,
-    userIsLogin: state.auth.userIsLogin,
+    userFormError: state.auth.userFormError,
     user: state.auth.user
   };
 };
 
-const mapDispatchToProps = {
-  login
-};
+const mapDispatchToProps = dispatch => ({
+  login: bindActionCreators(login, dispatch),
+  loginProceed: bindActionCreators(loginProceed, dispatch),
+  loginFormError: bindActionCreators(loginFormError, dispatch),
+  loginHideFormErrors: bindActionCreators(loginHideFormErrors, dispatch)
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

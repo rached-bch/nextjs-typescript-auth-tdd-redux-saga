@@ -2,53 +2,35 @@ import { handleActions } from "redux-actions";
 import * as types from "./types";
 import authState from "./state";
 
-// const authReducer = handleActions(
-//   {
-//     [types.LOGIN_SUCCESS]: (state, { payload }) => {
-//       return {
-//         ...state,
-//         userIsLogin: true
-//       };
-//     },
-//     [types.LOGIN_SUCCESS]: (state, { payload }) => {
-//       return {
-//         ...state,
-//         userIsLogin: false,
-//         userSuccess: true,
-//         userError: false,
-//         user: payload
-//       };
-//     },
-//     [types.LOGIN_ERROR]: (state, { payload }) => {
-//       return {
-//         ...state,
-//         userIsLogin: false,
-//         userSuccess: false,
-//         userError: true,
-//         user: {}
-//       };
-//     },
-//     [types.LOGOUT]: (state, { payload }) => {
-//       return initialState;
-//     }
-//   },
-//   initialState
-// );
-
-// export default authReducer;
-
 const authReducer = (state = authState, action) => {
-  //console.log("vvvvvvvvvvv", state);
+  console.log("action", action.type);
   switch (action.type) {
+    case types.LOGIN_FORM_ERROR:
+      return {
+        ...state,
+        userFormError: true,
+        userError: false,
+        userSuccess: false
+      };
+    case types.LOGIN_HIDE_FORM_ERRORS:
+      return {
+        ...state,
+        userFormError: false,
+        userError: false,
+        userSuccess: false
+      };
     case types.LOGIN_SUCCESS:
       return {
         ...state,
-        userIsLogin: true
+        userError: false,
+        userFormError: false,
+        userSuccess: true,
+        user: action.user
       };
     case types.LOGIN_ERROR:
       return {
         ...state,
-        userIsLogin: false,
+        userFormError: false,
         userSuccess: false,
         userError: true,
         user: {}

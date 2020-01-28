@@ -3,23 +3,23 @@ import { User } from "../../../models/user";
 interface AuthStateInterface {
   userError: boolean;
   userSuccess: boolean;
-  userIsLogin: boolean;
+  userFormError: boolean;
   user: User;
 }
 
 class AuthState implements AuthStateInterface {
-  userError: true;
-  userSuccess: false;
-  userIsLogin: false;
+  userError: boolean;
+  userSuccess: boolean;
+  userFormError: boolean;
   user: {
-    id: null;
-    name: null;
-    token: null;
+    id: number;
+    name: string;
+    token: string;
   };
   constructor() {
-    this.userError = true;
+    this.userError = false;
     this.userSuccess = false;
-    this.userIsLogin = false;
+    this.userFormError = false;
     this.user = {
       id: null,
       name: null,

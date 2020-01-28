@@ -1,21 +1,22 @@
 import * as types from "./types";
 import { createAction } from "redux-actions";
 
-// export const login = () => dispatch => {
-//   console.log("wwwwwwwwww");
-//   return dispatch({ type: types.LOGIN });
-// };
-export const login = createAction(types.LOGIN);
-
-// export const logout = () => dispatch => {
-//   console.log("fffffffff");
-//   return dispatch({ type: types.LOGOUT });
-// };
-export const logout = createAction(types.LOGOUT);
-export const loginProceed = () => dispatch => {
-  return dispatch({ type: types.LOGIN_PROCESS });
+//export const login = createAction(types.LOGIN);
+export const login = () => {
+  return { type: types.LOGIN };
 };
-
-export const loginSucceed = () => dispatch => {
-  return dispatch({ type: types.LOGIN_SUCCESS });
+export const loginFormError = () => {
+  return { type: types.LOGIN_FORM_ERROR };
+};
+export const logout = () => {
+  return { type: types.LOGOUT };
+};
+export const loginProceed = () => {
+  return { type: types.LOGIN_PROCESS };
+};
+export const loginHideFormErrors = () => {
+  return { type: types.LOGIN_HIDE_FORM_ERRORS };
+};
+export const loginSucceed = user => {
+  return { type: types.LOGIN_SUCCESS, user };
 };
