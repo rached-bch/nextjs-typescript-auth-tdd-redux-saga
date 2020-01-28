@@ -11,11 +11,12 @@ import { bindActionCreators } from "redux";
 import * as types from "../stores/modules/auth/types";
 
 class Login extends React.Component<any, any> {
+  isPublic: boolean = true;
   username: string = "deving.test@gmail.com";
   password: string = "12465mpdeed";
   runLogin = event => {
     event.preventDefault();
-    console.log(this.username, this.password);
+    //console.log(this.username, this.password);
     if (
       this.username !== null &&
       this.username.length > 0 &&

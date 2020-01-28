@@ -8,7 +8,7 @@ import { resolve } from "url";
 export const delay = ms => new Promise(res => setTimeout(res, ms));
 
 export function* login({ username, password }) {
-  console.log("loginnnn");
+  //console.log("loginnnn");
   // yield call(() => {
   //   client
   //     .query({
@@ -64,6 +64,7 @@ export function* login({ username, password }) {
       .then(result => {
         if (result.data.user) {
           user = result.data.user;
+          user.token = Math.floor(Math.random() * Math.floor(100)); // set random id (this could be replaced by jwt token)
         }
       });
     if (user !== false) {

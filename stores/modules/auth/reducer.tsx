@@ -3,7 +3,7 @@ import * as types from "./types";
 import authState from "./state";
 
 const authReducer = (state = authState, action) => {
-  console.log("action", action.type);
+  //console.log("action", action.type);
   switch (action.type) {
     case types.LOGIN_FORM_ERROR:
       return {
@@ -20,6 +20,7 @@ const authReducer = (state = authState, action) => {
         userSuccess: false
       };
     case types.LOGIN_SUCCESS:
+      localStorage.setItem("currentUser", JSON.stringify(action.user));
       return {
         ...state,
         userError: false,
@@ -36,6 +37,7 @@ const authReducer = (state = authState, action) => {
         user: {}
       };
     case types.LOGOUT:
+      localStorage.removeItem("currentUser");
       return authState;
     default:
       return state;
