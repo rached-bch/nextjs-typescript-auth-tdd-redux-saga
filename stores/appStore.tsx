@@ -10,7 +10,7 @@ const appStore = initialState => {
   const middleware = [sagaMiddleware];
 
   const composedEnhancers = compose(applyMiddleware(...middleware));
-
+  //console.log({ initialState });
   const store = createStore(rootReducer, initialState, composedEnhancers);
 
   sagaMiddleware.run(rootSaga);

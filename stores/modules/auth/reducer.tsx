@@ -1,6 +1,6 @@
 import { handleActions } from "redux-actions";
 import * as types from "./types";
-import appState from "../../appState";
+import authState from "./state";
 
 // const authReducer = handleActions(
 //   {
@@ -37,8 +37,8 @@ import appState from "../../appState";
 
 // export default authReducer;
 
-const authReducer = (state = appState, action) => {
-  //console.log("vvvvvvvvvvv", action);
+const authReducer = (state = authState, action) => {
+  //console.log("vvvvvvvvvvv", state);
   switch (action.type) {
     case types.LOGIN_SUCCESS:
       return {
@@ -54,7 +54,7 @@ const authReducer = (state = appState, action) => {
         user: {}
       };
     case types.LOGOUT:
-      return appState;
+      return authState;
     default:
       return state;
   }

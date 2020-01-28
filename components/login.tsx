@@ -67,7 +67,7 @@ class Login extends React.Component<any, any> {
 const mapStateToProps = state => {
   console.log({ state });
   return {
-    userError: state.auth.auth.userError,
+    userError: state.auth.userError,
     userSuccess: state.auth.userSuccess,
     userIsLogin: state.auth.userIsLogin,
     user: state.auth.user
