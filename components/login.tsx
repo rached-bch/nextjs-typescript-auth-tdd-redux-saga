@@ -9,6 +9,7 @@ import {
 import { func, object, string } from "prop-types";
 import { bindActionCreators } from "redux";
 import * as types from "../stores/modules/auth/types";
+import Router from "next/router";
 
 class Login extends React.Component<any, any> {
   isPublic: boolean = true;
@@ -30,6 +31,20 @@ class Login extends React.Component<any, any> {
     }
     //this.props.login();
   };
+
+  componentDidMount() {
+    const user = localStorage.getItem("currentUser");
+    if (user) {
+      Router.push("/dashboard");
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.userSuccess === true) {
+      Router.push("/dashboard");
+    }
+  }
+
   handleChange = event => {
     this.props.loginHideFormErrors();
     //console.log("event.target.name", event.target.name);
