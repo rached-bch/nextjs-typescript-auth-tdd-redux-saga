@@ -22,8 +22,8 @@ export default withRedux(appStore)(
     }
 
     render() {
-      //console.log(this.props);
       const { Component, pageProps, store } = this.props;
+      //console.log(":::::::::::", store.getState().auth.auth.userError);
       return (
         <ApolloProvider client={client}>
           <Provider store={store}>

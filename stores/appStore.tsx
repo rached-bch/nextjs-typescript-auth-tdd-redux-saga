@@ -3,16 +3,15 @@ import rootReducer from "./rootReducer";
 // redux-saga
 import createSagaMiddleware from "redux-saga";
 import rootSaga from "./rootSaga";
-import appState from "../stores/appState";
 
-const appStore = () => {
+const appStore = initialState => {
   const sagaMiddleware = createSagaMiddleware();
 
   const middleware = [sagaMiddleware];
 
   const composedEnhancers = compose(applyMiddleware(...middleware));
 
-  const store = createStore(rootReducer, composedEnhancers);
+  const store = createStore(rootReducer, initialState, composedEnhancers);
 
   sagaMiddleware.run(rootSaga);
 
