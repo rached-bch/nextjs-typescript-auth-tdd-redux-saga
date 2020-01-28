@@ -1,7 +1,8 @@
 import React from "react";
 import Layout from "../components/layout";
+import WithAuthSync from "../components/withAuthSync";
 
-export default class Dashboard extends React.Component<any> {
+class Dashboard extends React.Component<any> {
   render() {
     return (
       <Layout>
@@ -12,3 +13,5 @@ export default class Dashboard extends React.Component<any> {
     );
   }
 }
+
+export default WithAuthSync(Dashboard);
